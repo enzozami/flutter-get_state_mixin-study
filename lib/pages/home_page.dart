@@ -5,11 +5,13 @@ import 'package:get/state_manager.dart';
 
 import 'package:get_state_mixin/models/cep_model.dart';
 // import 'package:get_state_mixin/pages/home_controller.dart';
-import 'package:get_state_mixin/pages/home_controller_state_mixin.dart';
+// import 'package:get_state_mixin/pages/home_controller_state_mixin.dart';
+import 'package:get_state_mixin/pages/home_super_controller.dart';
 
 class HomePage extends StatelessWidget {
   // final controller = Get.find<HomeController>();
-  final controller = Get.find<HomeControllerStateMixin>();
+  // final controller = Get.find<HomeControllerStateMixin>();
+  final controller = Get.find<HomeSuperController>();
 
   HomePage({super.key});
 
