@@ -1,7 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_instance/src/extension_instance.dart';
+import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
+import 'package:get/route_manager.dart';
+
+import 'package:get_state_mixin/models/cep_model.dart';
+import 'package:get_state_mixin/pages/home_controller.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+  final controller = Get.find<HomeController>();
+
+  HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,12 +23,42 @@ class HomePage extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              TextFormField(),
-              ElevatedButton(onPressed: () {}, child: Text('Buscar')),
+              TextFormField(
+                onChanged: (value) {
+                  controller.cepSearch = value;
+                },
+              ),
+              ElevatedButton(
+                  onPressed: () {
+                    controller.findAddress();
+                  },
+                  child: Text('Buscar')),
               SizedBox(
                 height: 20,
               ),
-              CepWidget(),
+              Obx(() {
+                return Visibility(
+                  visible: controller.loading,
+                  child: Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                );
+              }),
+              SizedBox(
+                height: 20,
+              ),
+              Obx(() {
+                return Visibility(
+                  visible: controller.isError,
+                  child: Text('Erro ao buscar CEP'),
+                );
+              }),
+              Obx(() {
+                return Visibility(
+                  visible: !controller.loading,
+                  child: CepWidget(controller.cep),
+                );
+              }),
             ],
           ),
         ),
@@ -30,16 +68,18 @@ class HomePage extends StatelessWidget {
 }
 
 class CepWidget extends StatelessWidget {
-  const CepWidget({super.key});
+  final CepModel? cepModel;
+
+  const CepWidget(this.cepModel, {super.key});
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text('CEP:'),
-        Text('Cidade:'),
-        Text('Rua:'),
-        Text('UF:'),
+        Text('CEP: ${cepModel?.cep ?? ''}'),
+        Text('Cidade: ${cepModel?.localidade ?? ''}'),
+        Text('Rua: ${cepModel?.logradouro ?? ''}'),
+        Text('UF: ${cepModel?.uf ?? ''}'),
       ],
     );
   }

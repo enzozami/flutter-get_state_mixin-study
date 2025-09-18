@@ -4,12 +4,12 @@ class CepModel {
   String cep;
   String logradouro;
   String uf;
-  String cidade;
+  String localidade;
   CepModel({
     required this.cep,
     required this.logradouro,
     required this.uf,
-    required this.cidade,
+    required this.localidade,
   });
 
   Map<String, dynamic> toMap() {
@@ -17,7 +17,7 @@ class CepModel {
       'cep': cep,
       'logradouro': logradouro,
       'uf': uf,
-      'cidade': cidade,
+      'localidade': localidade,
     };
   }
 
@@ -26,7 +26,7 @@ class CepModel {
       cep: map['cep'] ?? '',
       logradouro: map['logradouro'] ?? '',
       uf: map['uf'] ?? '',
-      cidade: map['cidade'] ?? '',
+      localidade: map['localidade'] ?? '',
     );
   }
 
