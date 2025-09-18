@@ -31,10 +31,17 @@ class HomePage extends StatelessWidget {
                 },
               ),
               ElevatedButton(
-                  onPressed: () {
-                    controller.findAddress();
-                  },
-                  child: Text('Buscar')),
+                onPressed: () {
+                  controller.findAddress();
+                },
+                child: Text('Buscar'),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  controller.findAddress2();
+                },
+                child: Text('Buscar 2'),
+              ),
               SizedBox(
                 height: 20,
               ),
@@ -65,7 +72,6 @@ class HomePage extends StatelessWidget {
               controller.obx(
                 (state) => CepWidget(state),
                 onEmpty: Text('Nenhum CEP encontrado'),
-                onLoading: Text('Carregando'),
                 onError: (error) => Text('Erro ao buscar CEP'),
               )
             ],

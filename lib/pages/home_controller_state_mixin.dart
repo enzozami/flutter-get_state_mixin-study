@@ -21,10 +21,17 @@ class HomeControllerStateMixin extends GetxController with StateMixin<CepModel> 
   Future<void> findAddress() async {
     try {
       change(state, status: RxStatus.loading());
-      final cep = await _repository.getCep(_cepSearch.value);
+      final cep = await _findAddressRepository();
       change(cep, status: RxStatus.success());
     } catch (e) {
       change(state, status: RxStatus.error());
     }
   }
+
+  Future<void> findAddress2() async {
+    change(state, status: RxStatus.loading());
+    append(() => _findAddressRepository);
+  }
+
+  Future<CepModel> _findAddressRepository() async => await _repository.getCep(_cepSearch.value);
 }
